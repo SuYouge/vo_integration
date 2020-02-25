@@ -1,11 +1,15 @@
-# VO整合
+# stereomappter后台测试程序
+
+[stereomapper](https://github.com/willSapgreen/stereo-vision)的qt程序似乎有一些问题，先在后台测试一下各个模块的运行情况。
+熟悉一下整个程序。各个模块的信息整理在[这里](http://mecha-su.cn/2020/02/24/vision-slam-2/)。
+
+## readfromfiles线程
 
 
-《视觉SLAM十四讲》第13章工程项目  
+
+## VisualOdometryStereo线程
 
 
-以此为模板做一些实验  
 
-
-项目结构的理解记录在[这篇博客](http://mecha-su.cn/2020/02/23/vision-slam-1/)中
+## stereothread线程
 
