@@ -18,3 +18,7 @@
 
 ## stereothread线程
 
+able to get disparity serially.
+
+![raw_disparity](demo_fig/raw_disparity.png)
+

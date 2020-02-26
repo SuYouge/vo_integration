@@ -142,7 +142,7 @@ int main(){
             showDisparity(_stereo_thread->getColorDisparityMap(),_stereo_thread->getStereoImage()->height,_stereo_thread->getStereoImage()->width);
 
             // std::cout<<"total gain = "<<_visual_odom_thread->getGain()<<"in step"<<i+1<<std::endl;
-            // usleep(1e6/fps);
+            usleep(1e6/fps);
         } // for (int32_t i=0; i < data_size; ++i)
 
     return 0;
