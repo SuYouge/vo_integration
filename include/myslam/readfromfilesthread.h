@@ -37,6 +37,8 @@ public:
 
     void run();
 
+    void init(std::string input_dir); // integrated for test 
+
 private:
 
     CalibIOKITTI   *_calib;

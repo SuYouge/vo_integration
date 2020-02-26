@@ -139,3 +139,59 @@ void VisualOdometryThread::run()
     // emit newHomographyArrived();
     // while (!_picked) usleep(1000);
 }
+
+//===============================for test=======================================//
+
+void VisualOdometryThread::step(simage*  _simg_ext)
+{
+    if (_simg_ext!=0 && _simg_ext->width>0 && _simg_ext->height>0)
+    {
+        // get time
+        _time_prev = _time_curr;
+        _time_curr = _simg->time;
+
+        int32_t dim[3] = {0};
+        dim[0] = _simg->width;
+        dim[1] = _simg->height;
+        dim[2] = _simg->step;
+        std::cout << "SUCCESSFUL: processing in visualodomstereo::step \n";
+
+        _visualOdomStereo->process(_simg->I1, _simg->I2, dim, false);
+        Matrix H_Delta_inv = Matrix::eye(4);
+        Matrix H_Delta = _visualOdomStereo->getDeltaMotion(); // the vehicle motion ( passive transformation )
+        _H_Delta = H_Delta; // Because Matrix::solve will change Matrix's element.
+        _visualOdomStereo->calculateRollPitchYawFromTransformation( _delta_roll, _delta_pitch, _delta_yaw );
+        _visualOdomStereo->calculateVelocityFromTransformation( _delta_vel );
+
+        // get inliers
+        vector<int32_t> inliers = _visualOdomStereo->getInlierIndices();
+        _inliers.clear();
+        for (int32_t i=0; i<(int32_t)_visualOdomStereo->getMatches().size(); i++)
+        {
+            _inliers.push_back(false);
+        }
+        for (std::vector<int32_t>::iterator it=inliers.begin(); it!=inliers.end(); it++)
+        {
+            _inliers[*it] = true;
+        }
+
+        // compute gain
+        _gain = _visualOdomStereo->getGain( inliers );
+
+        if (H_Delta_inv.solve(H_Delta))
+        {
+            /*
+             * H_Delta is the vehicle transformation ( passive transformation )
+             * from time_k-1 to time_k ( the current coordinate )
+             * Therefore, to calculate _H_total ( the transformation from time_k to time_0 )
+             * Inverse operation is applied to calculate H_Delta_inv.
+             * H_Delta_inv transforms the 3D point from time_k to time_k-1
+             * accmulated transformation _H_total transforms the 3D point from time_k-1 to time_0
+             */
+            _H_total = _H_total * H_Delta_inv;
+            _picked = false;
+        }   
+    }
+    // emit newHomographyArrived();
+    // while (!_picked) usleep(1000);
+}

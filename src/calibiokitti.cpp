@@ -34,7 +34,7 @@ bool CalibIOKITTI::readCalibFromFiles(const std::string& a_cam_cam_calib_file_na
     {
         std::cout<<"read calib success"<<std::endl;
         _calibrated = true;
-        showCalibrationParameters();
+        //showCalibrationParameters();
         //signal to main dialog that we have the new calibration data.
         _picked = false;
         // emit newCalibrationData();

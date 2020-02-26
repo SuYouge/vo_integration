@@ -123,3 +123,48 @@ void ReadFromFilesThread::run()
         std::cout << "No calibration file found => No files read." << std::endl;
     }
 }
+
+void ReadFromFilesThread::init(std::string input_dir){
+    // _input_dir = input_dir;
+    /**/
+    std::string input_dir_str = input_dir;
+    std::cout<< "get input dir = " <<input_dir_str<<std::endl;
+    // Check if the variables are valid.
+    if ((NULL == _calib) ||
+        (NULL == _stereo_image_io) ||
+        (input_dir_str.empty()))
+    {
+        std::cout<<"input dir state"<< input_dir_str.empty()<<std::endl;
+        return;
+    }
+    std::cout<< "variables are valid."<<std::endl;
+
+    /*read calib from files*/
+
+    if (_calib->readCalibFromFiles((input_dir_str + DEFAULT_CAM_TO_CAM_TXT_PATH),
+                                   (input_dir_str + DEFAULT_IMU_TO_VELO_TXT_PATH),
+                                   (input_dir_str + DEFAULT_VELO_TO_CAM_TXT_PATH))){
+
+    // std::cout<< "start setting up data path"<<std::endl;
+        std::string image_timestamp_files[IMAGE_INPUT_SOURCE_COUNT];
+        std::string image_directories[IMAGE_INPUT_SOURCE_COUNT];
+        image_timestamp_files[IMAGE_INPUT_SOURCE_GRAY_LEFT] = input_dir_str + DEFAULT_IMAGE00_TIMESTAMP_TXT_PATH;
+        image_timestamp_files[IMAGE_INPUT_SOURCE_GRAY_RIGHT] = input_dir_str + DEFAULT_IMAGE01_TIMESTAMP_TXT_PATH;
+        image_directories[IMAGE_INPUT_SOURCE_GRAY_LEFT] = input_dir_str + DEFAULT_IMAGE00_DATA_PATH;
+        image_directories[IMAGE_INPUT_SOURCE_GRAY_RIGHT] = input_dir_str + DEFAULT_IMAGE01_DATA_PATH;
+
+        bool process_succeed = _stereo_image_io->setUpDataPath(image_directories, image_timestamp_files) &&
+                               _gps_inertial_data_io->setUpDataPath(input_dir_str + DEFAULT_OXTS_DATA_PATH,
+                                                           input_dir_str + DEFAULT_OXTS_TIMESTAMP_TXT_PATH);
+        if ((!process_succeed) ||
+            (_stereo_image_io->getImagesNumber() != _gps_inertial_data_io->getOxTSDataSize()))
+        {
+            std::cout << "ERROR: Cannot fetch data or image/oxts data sizes are different\n";
+            return;
+        }else {
+            // std::cout << "SUCCESSFUL: Fetch data and image/oxts data sizes are same\n";
+        }
+
+        // int32_t data_size = _gps_inertial_data_io->getOxTSDataSize();    
+    }
+}

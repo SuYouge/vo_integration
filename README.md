@@ -13,7 +13,8 @@
 
 ## VisualOdometryStereo线程
 
-
+[readfile_test](app/visualodometry_test.cpp)
+已然破坏了整个程序。
 
 ## stereothread线程
 

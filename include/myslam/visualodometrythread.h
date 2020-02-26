@@ -40,6 +40,8 @@ public:
 
     void run();
 
+    void step(simage*  _simg_ext);
+
 private:
 
     float timeDiff(timeval a,timeval b)
