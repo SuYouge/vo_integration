@@ -7,8 +7,11 @@ add_library(myslam SHARED
         stereoimageiokitti.cpp
 
         visualodometrythread.cpp
+
+        planeestimation.cpp
+        stereothread.cpp
 )
 
-target_link_libraries(myslam viso2
+target_link_libraries(myslam viso2 elas 
 ${THIRD_PARTY_LIBS}
 )

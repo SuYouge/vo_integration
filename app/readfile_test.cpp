@@ -1,11 +1,3 @@
-/*
- * @Author: Yogurt Suee
- * @Date: 2020-02-25 14:46:37
- * @LastEditors: Yogurt Suee
- * @LastEditTime: 2020-02-26 09:47:42
- * @Description: test readfromfilesthread
- */
-
 #include "readfromfilesthread.h"
 #include "string"
 #include <iostream>
