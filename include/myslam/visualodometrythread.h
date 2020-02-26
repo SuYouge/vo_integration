@@ -11,6 +11,7 @@
 #include "../libviso2/src/viso_stereo.h"
 #include "../libviso2/src/timer.h"
 
+
 class VisualOdometryThread //  : public QThread
 {
     // Q_OBJECT

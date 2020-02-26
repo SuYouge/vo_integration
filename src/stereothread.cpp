@@ -3,6 +3,8 @@
 
 using namespace std;
 
+
+
 StereoThread::StereoThread(CalibIOKITTI *calib,View3D *modelView) :
     // QThread(parent),
     // _calib(calib),

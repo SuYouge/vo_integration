@@ -32,8 +32,7 @@ public:
     float* getColorDisparityMap() { return _D_color; }
     void clearReconstruction();
 
-protected:
-
+// protected:
     void run();
 
 private:
@@ -177,6 +176,7 @@ private:
     // In the current algorithm design, only the previous maps3d is used.
     // TODO: use circular buffer to hold a series of maps3d.
     //std::vector<map3d>     _maps3d;
+
     map3d _previous_map3d;
     bool                   _plane_estimated;
     bool                   _picked;

@@ -154,7 +154,7 @@ void VisualOdometryThread::step(simage*  _simg_ext)
         dim[0] = _simg->width;
         dim[1] = _simg->height;
         dim[2] = _simg->step;
-        std::cout << "SUCCESSFUL: processing in visualodomstereo::step \n";
+        // std::cout << "SUCCESSFUL: processing in visualodomstereo::step \n";
 
         _visualOdomStereo->process(_simg->I1, _simg->I2, dim, false);
         Matrix H_Delta_inv = Matrix::eye(4);
