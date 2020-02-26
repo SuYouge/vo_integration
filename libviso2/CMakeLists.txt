@@ -18,10 +18,19 @@
 # set(CMAKE_BUILD_TYPE Release)
 
 # # demo program
-# add_executable(viso2 ${LIBVISO2_SRC_FILES})
-# target_link_libraries (viso2 png)
+# # add_executable(viso2 ${LIBVISO2_SRC_FILES})
+# # target_link_libraries (viso2 png)
 
-add_library(matrix SHARED
+# # add_library(matrix SHARED
+# #         src/matrix.cpp
+# # )
+
+add_library(viso2 SHARED
         src/matrix.cpp
+        src/filter.cpp
+        src/matcher.cpp
+        # src/reconstruction.cpp
+        src/triangle.cpp
+        src/viso_stereo.cpp
+        src/viso.cpp
 )
-

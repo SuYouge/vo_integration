@@ -11,6 +11,11 @@
 #include <simage.h>
 #include <image.h>
 
+#include <opencv2/core.hpp>
+#include <opencv2/opencv.hpp>
+#include <math.h>
+
+
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -42,7 +47,8 @@ public:
     }
 
 private:
-
+    void showsImage();
+    
     image*  _img_left;
     image*  _img_right;
     simage* _simg;

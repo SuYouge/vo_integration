@@ -2,8 +2,8 @@
  * @Author: Yogurt Suee
  * @Date: 2020-02-25 14:46:37
  * @LastEditors: Yogurt Suee
- * @LastEditTime: 2020-02-25 17:41:28
- * @Description: file content
+ * @LastEditTime: 2020-02-26 09:47:42
+ * @Description: test readfromfilesthread
  */
 
 #include "readfromfilesthread.h"
@@ -15,6 +15,7 @@ using namespace std;
 std::string dir = "/home/yogurtsuee/Dataset/raw/2011_09_26_0002";
 
 int main(){
+    
     cout<<"Start processing"<<endl;
 
     StereoImage* _stereo_image;
@@ -36,6 +37,8 @@ int main(){
     _read_thread = new ReadFromFilesThread(_stereo_image, _gps_inertial_data, _calib, _stereo_image_io, _gps_inertial_data_io);
     
     _read_thread->setInputDir(dir);
+
+    // _calib->showCalibrationParameters();
 
     _read_thread->run();
 

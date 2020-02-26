@@ -11,9 +11,11 @@
 #include <cstring>
 #include <stdlib.h>
 #include "../libviso2/src/timer.h"
+#include <memory>
 
 struct simage
     {
+        // typedef std::shared_ptr<simage> Ptr;
         // I1, I2 are the input image.
         unsigned char* I1;
         unsigned char* I2;

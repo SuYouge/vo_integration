@@ -2,7 +2,7 @@
 
 // #include <stdlib.h>
 // #include <string.h>
-#include <math.h>
+
 // #include <iostream>
 
 using namespace std;
@@ -80,13 +80,38 @@ void StereoImage::setImage(unsigned char* data,int width,int height,int step,boo
             // copy data from single images to stereo images
             memcpy(_simg->I1,_img_left->data,_simg->step*_simg->height*sizeof(unsigned char));
             memcpy(_simg->I2,_img_right->data,_simg->step*_simg->height*sizeof(unsigned char));
-
+            // std::cout<<"processing image"<<std::endl;
+            // showsImage();
             // signal to main dialog that we have new data
             _picked = false;
             // emit newStereoImageArrived();
             // while (!_picked) usleep(1000);
         }
     }
+}
+
+//==============================================================================//
+
+void StereoImage::showsImage(){
+    // int nr = _simg->height;
+    // int nv = _simg->step*sizeof(unsigned char);
+    // 得找个机会把这个地方改了
+    CvSize size;
+    size.height = _simg->height;
+    size.width = _simg->step*sizeof(unsigned char);
+    IplImage* imgptr_1 = cvCreateImageHeader( size, IPL_DEPTH_8U, 1 );
+    IplImage* imgptr_2 = cvCreateImageHeader( size, IPL_DEPTH_8U, 1 );
+    auto ptr_1 = _simg->I1;
+    auto ptr_2 = _simg->I2;
+    cvSetData( imgptr_1, ptr_1 , _simg->step );
+    cvSetData( imgptr_2, ptr_2 , _simg->step );
+    cv::Mat m_1 = cv::cvarrToMat(imgptr_1); 
+    cv::Mat m_2 = cv::cvarrToMat(imgptr_2);
+    cv::Mat m;
+    vconcat(m_1,m_2, m);
+    // std::cout<<m.size()<<std::endl;
+    cv::imshow("data_set",m);
+    cvWaitKey(1);
 }
 
 //==============================================================================//

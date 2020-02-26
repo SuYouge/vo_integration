@@ -48,7 +48,7 @@ void ReadFromFilesThread::run()
                                    (input_dir_str + DEFAULT_IMU_TO_VELO_TXT_PATH),
                                    (input_dir_str + DEFAULT_VELO_TO_CAM_TXT_PATH)))
     {
-        std::cout<< "start setting up data path"<<std::endl;
+        // std::cout<< "start setting up data path"<<std::endl;
         std::string image_timestamp_files[IMAGE_INPUT_SOURCE_COUNT];
         std::string image_directories[IMAGE_INPUT_SOURCE_COUNT];
         image_timestamp_files[IMAGE_INPUT_SOURCE_GRAY_LEFT] = input_dir_str + DEFAULT_IMAGE00_TIMESTAMP_TXT_PATH;
@@ -65,7 +65,7 @@ void ReadFromFilesThread::run()
             std::cout << "ERROR: Cannot fetch data or image/oxts data sizes are different\n";
             return;
         }else {
-            std::cout << "SUCCESSFUL: Fetch data and image/oxts data sizes are same\n";
+            // std::cout << "SUCCESSFUL: Fetch data and image/oxts data sizes are same\n";
         }
 
         int32_t data_size = _gps_inertial_data_io->getOxTSDataSize();
@@ -85,17 +85,16 @@ void ReadFromFilesThread::run()
             {
                 continue;
             }
-            std::cout << "SUCCESSFUL: Start converting gps data\n";
+            // std::cout << "SUCCESSFUL: Start converting gps data\n";
             // Convert OxST data to GPSInertialData.
             GPSInertialDataFormat gi_data;
             oxts_data.toGPSInertialDataFormat(gi_data);
             _gps_inertial_data->setData(gi_data);
-            std::cout << "SUCCESSFUL: Start getting raw data\n";
+            // std::cout << "SUCCESSFUL: Start getting raw data\n";
             // Get the raw data.
             cvGetRawData(image_set[IMAGE_INPUT_SOURCE_GRAY_LEFT]._image, &left_img_data);
             cvGetRawData(image_set[IMAGE_INPUT_SOURCE_GRAY_RIGHT]._image, &right_img_data);
-
-            std::cout << "SUCCESSFUL: Start setting image\n";
+            // std::cout << "SUCCESSFUL: Start setting image\n";
             _stereo_image->setImage(left_img_data,
                                     image_set[IMAGE_INPUT_SOURCE_GRAY_LEFT]._image->width,
                                     image_set[IMAGE_INPUT_SOURCE_GRAY_LEFT]._image->height,
@@ -107,13 +106,13 @@ void ReadFromFilesThread::run()
                                     image_set[IMAGE_INPUT_SOURCE_GRAY_RIGHT]._image->widthStep,
                                     false, true, image_set[IMAGE_INPUT_SOURCE_GRAY_RIGHT]._captured_time);
                                     
-            std::cout << "SUCCESSFUL: Set "<<i<<"th stereo image\n";
+            // std::cout << "SUCCESSFUL: Set "<<i<<"th stereo image\n";
             // Release the memory in IplImage.
             for(int j = 0; j < IMAGE_INPUT_SOURCE_COUNT; ++j)
             {
                 cvReleaseImage(&(image_set[j]._image));
             }
-            std::cout << "SUCCESSFUL: start sleeping at  "<<i<<"th stereo image\n";
+            // std::cout << "SUCCESSFUL: start sleeping at  "<<i<<"th stereo image\n";
             usleep(1e6/fps);
         } // for (int32_t i=0; i < data_size; ++i)
 

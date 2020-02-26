@@ -58,8 +58,8 @@ set(THIRD_PARTY_LIBS
         # ${CSPARSE_LIBRARY}
         )
 
-include_directories("/home/yogurtsuee/stereomapper_module/include/myslam")
-include_directories("/home/yogurtsuee/stereomapper_module/include")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/myslam)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # link_directories("/home/yogurtsuee/stereomapper_module")
 
 # add_executable(main main.cpp)

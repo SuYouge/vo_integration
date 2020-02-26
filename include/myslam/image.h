@@ -1,10 +1,3 @@
-/*
- * @Author: Yogurt Suee
- * @Date: 2020-02-25 14:13:11
- * @LastEditors: Yogurt Suee
- * @LastEditTime: 2020-02-25 16:21:09
- * @Description: seperated from stereoimage.h
- */
 #ifndef IMAGE_H
 #define IMAGE_H
 
@@ -13,6 +6,8 @@
 
 struct image
     {
+        // typedef std::shared_ptr<image> Ptr;
+
         unsigned char* data;
         int            width;
         int            height;

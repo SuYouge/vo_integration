@@ -5,8 +5,10 @@ add_library(myslam SHARED
         readfromfilesthread.cpp
         stereoimage.cpp
         stereoimageiokitti.cpp
+
+        visualodometrythread.cpp
 )
 
-target_link_libraries(myslam matrix 
+target_link_libraries(myslam viso2
 ${THIRD_PARTY_LIBS}
 )

@@ -16,6 +16,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include "../libviso2/src/matrix.h"
 
+#include <sstream>
+#include <iostream>
+
 #ifdef _WIN32
 #include <windows.h>
 #else

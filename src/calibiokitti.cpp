@@ -1,6 +1,5 @@
 #include "calibiokitti.h"
-#include <sstream>
-#include <iostream>
+
 
 #define CALIB_IO_KITTI_DEBUG 0
 
@@ -33,14 +32,14 @@ bool CalibIOKITTI::readCalibFromFiles(const std::string& a_cam_cam_calib_file_na
                    readVeloToCamCalibFromFile( a_velo_cam_calib_file_name );
     if (success)
     {
-        std::cout<<"read calib sucdess"<<std::endl;
+        std::cout<<"read calib success"<<std::endl;
         _calibrated = true;
+        showCalibrationParameters();
         //signal to main dialog that we have the new calibration data.
         _picked = false;
         // emit newCalibrationData();
         // while (!_picked) usleep(1000);
     }
-
     return success;
 }
 
@@ -168,6 +167,7 @@ bool CalibIOKITTI::readCalibFileString(FILE* a_calib_file,
             {
                 a_calib_string.push_back(line_vector[i]);
             }
+            // std::cout<<a_calib_string[0]<<std::endl;
             return true;
         }
     }
@@ -238,6 +238,7 @@ bool CalibIOKITTI::readCamToCamCalibFromFile(const std::string& a_calib_file_nam
 
     readCalibFileString(calib_file, "calib_time:", _cam_to_cam_calib_time);
     readCalibFileMatrix(calib_file, "corner_dist:", 1, 1, _cam_to_cam_corner_dist);
+    // std::cout<<"size of calib time = "<<_cam_to_cam_calib_time.size()<<std::endl;
     for (int i = 0; i < KITTI_CAMERA_NUM; ++i)
     {
         std::string index = std::to_string(i);
@@ -317,6 +318,7 @@ void CalibIOKITTI::showMatrix(const Matrix& matrix, const std::string& desc)
     if(desc.compare(""))
     {
         std::cout << "Matrix \"" << desc << "\":" << std::endl;
+        // std::cout<<matrix._m<<"x"<<matrix._n<<std::endl;
     }
 
     for(int32_t r = 0; r < matrix._m; ++r)
