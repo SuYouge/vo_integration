@@ -142,6 +142,7 @@ void VisualOdometryThread::run()
 
 //===============================for test=======================================//
 
+// 
 void VisualOdometryThread::step(simage*  _simg_ext)
 {
     if (_simg_ext!=0 && _simg_ext->width>0 && _simg_ext->height>0)
